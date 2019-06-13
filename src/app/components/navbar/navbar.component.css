@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: b;
+}
+li, a, button {
+  font-weight: 500;
+  font-size: 18px;
+  color: brown;
+  text-decoration: none;
+}
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+
+.nav__links {
+  list-style: none;
+}
+.nav__links {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.nav__links li a{
+  transition: all 0.3s ease 0s;
+}
+.nav__links li a:hover{
+  color: blueviolet;
+}
+button{
+  padding: 9px 25px;
+  background-color: rgba(0,136,169,1);
+  border: none;
+  border-radius: 50px;
+}
+button:hover{
+  background-color: rgba(0, 136,169,0.8);
+}
+
+.active1 {
+  text-decoration: underline;
+  color: red;
+}
+.active button{
+  color: pink;
+}
