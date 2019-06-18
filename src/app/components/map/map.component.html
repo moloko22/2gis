@@ -1,3 +1,11 @@
-<p>
-  map works!
-</p>
+<div id="map">
+  <div class="popup" *ngIf="popup">
+    <p>Загрузка координат...</p>
+  </div>
+</div>
+<div class="btns">
+  <button (click)="send(coordinates)">save</button>
+  <button (click)="get()">show</button>
+</div>
+
+

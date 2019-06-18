@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpModule} from "@angular/http";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +11,7 @@ import { AboutAuthorComponent } from './components/about-author/about-author.com
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
+import { MapService } from "./map.service";
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { MapComponent } from './components/map/map.component';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -37,7 +40,7 @@ import { MapComponent } from './components/map/map.component';
       },
     ])
   ],
-  providers: [],
+  providers: [MapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

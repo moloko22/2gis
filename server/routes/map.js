@@ -15,20 +15,12 @@ router.get('/map', function(req, res, next){
 });
 //save task
 router.post('/task', function(req, res, next){
-  let task = req.body;
-  if(!task.title || (task.isDone + '')){
-    res.status(400);
-    res.json({
-      'error': 'Bad Data',
-    })
-  }else{
-    db.coordinates.save(task, function(err, task){
-      if(err){
-        res.send(err);
-      }else{
-        res.json(task);
-      }
-    })
-  }
+  db.coordinates.save(task, function(err, task){
+    if(err){
+      res.send(err);
+    }else{
+      res.json(task);
+    }
+  })
 });
 module.exports = router;
