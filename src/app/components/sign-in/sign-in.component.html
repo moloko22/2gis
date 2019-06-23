@@ -1,0 +1,19 @@
+<div class="login">
+  <form [formGroup]="loginForm"
+        (ngSubmit)="checkAuth(loginForm.value)">
+    <input type="email"
+           name = "email"
+           placeholder = "example@gmail.com"
+           formControlName = "email">
+    <br/>
+    <input type="password"
+           name="password"
+           placeholder="password"
+           formControlName="password">
+    <br/>
+    <input type="submit"
+           [disabled]="!loginForm.valid"
+           value="Log In">
+  </form>
+</div>
+<a routerLink="/registration">or <span>Sign Up</span></a>
