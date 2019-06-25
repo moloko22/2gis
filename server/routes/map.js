@@ -53,8 +53,7 @@ router.post('/register', function(req, res, next){
         if(err){
           return res.status(500).send('Error')
         }else{
-          res.json(user);
-          return res.status(200).send('User registered successful')
+         return res.json(user);
         }
       })
     }

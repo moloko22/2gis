@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from "@angular/http";
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
@@ -12,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
 import { AuthModule } from "./auth/auth.module";
 import {SignInComponent} from "./components/sign-in/sign-in.component";
+import {AuthService} from "./auth.service";
 
 
 
@@ -43,9 +45,10 @@ import {SignInComponent} from "./components/sign-in/sign-in.component";
     ]),
     ReactiveFormsModule,
     FormsModule,
-    AuthModule
+    AuthModule,
+    HttpModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
