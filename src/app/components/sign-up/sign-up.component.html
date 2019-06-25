@@ -1,6 +1,6 @@
 <div>
   <form [formGroup]="signUp"
-        (ngSubmit)="checkSignUp()" >
+        (ngSubmit)="checkSignUp(signUp.value)">
     <div class="form-group">
       <label>First Name</label>
       <input type="text"

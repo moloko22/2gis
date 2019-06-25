@@ -23,12 +23,11 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
   }
-  get f(){ return this.signUp.controls;}
+  get f(){ return this.signUp.controls}
   checkSignUp(){
     this.submitted = true;
     if(this.signUp.invalid){
       return;
     }
-    console.log("good");
   }
 }
