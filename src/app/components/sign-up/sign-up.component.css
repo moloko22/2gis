@@ -1,0 +1,22 @@
+button{
+  background-color: aqua;
+  min-height: 30px;
+  border-radius: 15px;
+  width: 80px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.invalid-feedback {
+  color: red;
+  font-size: 18px;
+}
+.form-group{
+  display: flex;
+  flex-wrap: wrap;
+  width: 210px;
+  margin: 8px;
+  font-size: 19px;
+}
+.form-group input {
+  font-size: 16px;
+}

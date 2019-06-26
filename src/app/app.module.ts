@@ -10,6 +10,10 @@ import { AboutAuthorComponent } from './components/about-author/about-author.com
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
+import { AuthModule } from "./auth/auth.module";
+import {SignInComponent} from "./components/sign-in/sign-in.component";
+
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,8 @@ import { MapComponent } from './components/map/map.component';
     AboutAuthorComponent,
     AuthorizationComponent,
     NavbarComponent,
-    MapComponent
+    MapComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -28,14 +33,17 @@ import { MapComponent } from './components/map/map.component';
         component: MainPageComponent
       },
       {
-        path:'about',
+        path: 'about',
         component: AboutAuthorComponent
       },
       {
-        path:'auth',
+        path: 'auth',
         component: AuthorizationComponent
       },
-    ])
+    ]),
+    ReactiveFormsModule,
+    FormsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
