@@ -62,19 +62,15 @@ router.post('/register', function(req, res, next){
 router.post('/login', function(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
-  let user = {
-    email: email,
-    password: password
-  };
-  db.users.findOne({email: user.email, password: user.password}, function (err, user) {
+  db.users.findOne({email: email, password: password}, function (err, user) {
       if (err) {
-        return res.status(500).send("Error");
+        return res.status(500).send();
+      }
+      if(user){
+        return res.json(user);
       }
       if (!user) {
         return res.status(404).send("Wrong email or password");
-      }
-      if (user) {
-        return res.status(200).send("Good job ");
       }
     })
   })

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { AuthService } from "../../auth.service";
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -7,7 +9,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class SignInComponent implements OnInit {
   public loginForm: FormGroup;
-  constructor() {
+  constructor(private login:AuthService) {
     this.loginForm = new FormGroup({
       email: new FormControl("", Validators.compose([
         Validators.required,
@@ -25,5 +27,9 @@ export class SignInComponent implements OnInit {
   }
   public checkAuth(object){
     console.log(object);
+    this.login.signIn(object)
+      .subscribe(res =>{
+        console.log(res);
+      })
   }
 }
