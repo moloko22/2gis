@@ -7,7 +7,6 @@ import * as DG from '2gis-maps';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  popup = false;
   map;
   coordinates = [];
   group = DG.layerGroup();
@@ -22,9 +21,7 @@ export class MapComponent implements OnInit {
       'zoom': 14,
       'doubleClickZoom': false,
     });
-    //Если нужно брать мои координаты с базы данных, тогда сделал проверку на title в
-    // функции showRes()
-    DG.marker([46.482509, 30.718528], {title: "Ilya is here"}).addTo(this.group);
+    DG.control.location(DG.Control.LocationControl, {drawCircle: true, follow: true, StopFollowingOnDrag: true}).addTo(this.map);
     this.group.addTo(this.map);
     this.addMarker(this.coordinates, this.group);
   }
@@ -41,19 +38,17 @@ export class MapComponent implements OnInit {
       arr.push(obj);
     });
   }
-  send(arr){
-    this.group.remove(this.map);
-    for(var i = 0; i < arr.length; i++){
-      this.data.sendData(arr[i]);
+  send(){
+    for(var i = 0; i<this.coordinates.length;i++){
+      this.data.sendData(this.coordinates[i])
     }
+    this.group.remove(this.map);
   }
   get() {
-    this.popup = !this.popup;
     this.data.getData()
       .subscribe(tasks => {
         this.coordinates = tasks;
         this.showRes(this.coordinates);
-        this.popup = !this.popup;
       });
   }
   showRes(arr){
@@ -67,5 +62,11 @@ export class MapComponent implements OnInit {
       }
       this.group.addTo(this.map);
     }
+  }
+  getList(name){
+    this.data.list(name)
+      .subscribe(res=>{
+
+      })
   }
 }

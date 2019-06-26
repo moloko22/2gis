@@ -26,7 +26,6 @@ export class SignInComponent implements OnInit {
     }
   }
   public checkAuth(object){
-    console.log(object);
     this.login.signIn(object)
       .subscribe(res =>{
         console.log(res);

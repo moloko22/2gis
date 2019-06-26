@@ -1,11 +1,13 @@
-<div id="map">
-  <div class="popup" *ngIf="popup">
-    <p>Загрузка координат...</p>
-  </div>
-</div>
+<div id="map"></div>
 <div class="btns">
-  <button (click)="send(coordinates)">save</button>
+  <button (click)="send()">save</button>
   <button (click)="get()">show</button>
 </div>
-
+<div class="list">
+  <h3>Places list:</h3>
+  <li><a (click)="getList({name: 'school'})">School</a></li>
+  <li><a (click)="getList({name: 'gas'})">Gas Station</a></li>
+  <li><a (click)="getList({name: 'pharmacies'})">Pharmacies</a></li>
+  <li><a (click)="getList({name: 'restoran'})">Restaurant</a></li>
+</div>
 

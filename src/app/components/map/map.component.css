@@ -28,3 +28,14 @@
   left: 35%;
   background-color: #fff5ee;
 }
+.list li{
+  list-style: none;
+}
+.list a{
+  text-decoration: none;
+  color: black;
+}
+.list a:hover{
+  color: red;
+  text-decoration: underline;
+}
