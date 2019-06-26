@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
-const db = mongojs('mongodb://localhost:27017/mainGIS', ['coordinates']);
+const db = mongojs('mongodb://localhost:27017/mainGIS', ['coordinates', 'users']);
 
 //get all tasks
 router.get('/map', function(req, res, next){
@@ -21,6 +21,50 @@ router.post('/task', function(req, res, next){
     }else{
       res.json(task);
     }
+  })
+});
+
+router.post('/register', function(req, res, next){
+  let name = req.body.name;
+  let email = req.body.email;
+  let password = req.body.password;
+  let newUser = {
+    name: name,
+    email: email,
+    password: password
+  };
+  db.users.findOne({email: newUser.email}, function(err, user){
+    if(err){
+      return res.status(500).send("Error")
+    }
+    if(user){
+      return res.status(500).send('User with this email already exist');
+    }
+    if(!user){
+      db.users.save(newUser, function(err, user){
+        if(err){
+          return res.status(500).send('Error')
+        }else{
+         return res.json(user);
+        }
+      })
+    }
+});
+
+router.post('/login', function(req, res, next) {
+  let email = req.body.email;
+  let password = req.body.password;
+  db.users.findOne({email: email, password: password}, function (err, user) {
+      if (err) {
+        return res.status(500).send();
+      }
+      if(user){
+        return res.json(user);
+      }
+      if (!user) {
+        return res.status(404).send("Wrong email or password");
+      }
+    })
   })
 });
 module.exports = router;
