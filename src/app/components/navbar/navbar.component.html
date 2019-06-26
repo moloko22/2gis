@@ -5,5 +5,6 @@
       <li><a routerLinkActive="active1" routerLink="about">About</a></li>
     </ul>
   </nav>
-  <a routerLinkActive="active" class="auth" routerLink="auth"><button>Authorization</button></a>
+  <a routerLinkActive="active" class="auth" routerLink="auth"><button *ngIf="!nameUser">Authorization</button><button *ngIf="nameUser">Log out {{nameUser}}</button></a>
 </header>
+

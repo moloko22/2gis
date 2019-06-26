@@ -7,6 +7,9 @@ import { SignUpComponent } from "../components/sign-up/sign-up.component";
 
 @NgModule({
   declarations: [SignUpComponent],
+  exports: [
+    SignUpComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
