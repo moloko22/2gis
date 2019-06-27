@@ -39,7 +39,7 @@ router.post('/login', function(req, res, next) {
     if (!user) {
       return res.status(404).send("Wrong email or password");
     }
-  })
+  });
 });
 router.post('/register', function(req, res, next) {
   let name = req.body.name;
