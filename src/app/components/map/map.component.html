@@ -1,3 +1,13 @@
-<p>
-  map works!
-</p>
+<div id="map"></div>
+<div class="btns">
+  <button [disabled]="submitted" (click)="send()">save</button>
+  <button [disabled]="!submitted" (click)="get()">show</button>
+</div>
+<div class="list">
+  <h3>Places list:</h3>
+  <li><a (click)="getList({name: 'school'})">School</a></li>
+  <li><a (click)="getList({name: 'gas'})">Gas Station</a></li>
+  <li><a (click)="getList({name: 'pharmacies'})">Pharmacies</a></li>
+  <li><a (click)="getList({name: 'restaurant'})">Restaurant</a></li>
+</div>
+

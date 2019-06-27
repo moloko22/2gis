@@ -1,19 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpModule} from "@angular/http";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from "@angular/http";
-import { HttpClientModule } from '@angular/common/http';
+
+import { AuthService } from "./auth.service";
+import { MapService } from "./map.service";
+import { AuthModule } from "./auth/auth.module";
+
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AboutAuthorComponent } from './components/about-author/about-author.component';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
-import { AuthModule } from "./auth/auth.module";
-import {SignInComponent} from "./components/sign-in/sign-in.component";
-import {AuthService} from "./auth.service";
+import { SignInComponent } from "./components/sign-in/sign-in.component";
 
 
 
@@ -29,6 +31,7 @@ import {AuthService} from "./auth.service";
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -48,7 +51,7 @@ import {AuthService} from "./auth.service";
     AuthModule,
     HttpModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, MapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
