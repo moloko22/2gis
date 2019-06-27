@@ -26,8 +26,22 @@ router.post('/savecoordinates', function(req, res, next){
       }
     })
 });
-
-router.post('/register', function(req, res, next){
+router.post('/login', function(req, res, next) {
+  let email = req.body.email;
+  let password = req.body.password;
+  db.users.findOne({email: email, password: password}, function (err, user) {
+    if (err) {
+      return res.status(500).send();
+    }
+    if(user){
+      return res.json(user);
+    }
+    if (!user) {
+      return res.status(404).send("Wrong email or password");
+    }
+  })
+});
+router.post('/register', function(req, res, next) {
   let name = req.body.name;
   let email = req.body.email;
   let password = req.body.password;
@@ -36,40 +50,25 @@ router.post('/register', function(req, res, next){
     email: email,
     password: password
   };
-  db.users.findOne({email: newUser.email}, function(err, user){
-    if(err){
+  db.users.findOne({email: newUser.email}, function (err, user) {
+    if (err) {
       return res.status(500).send("Error")
     }
-    if(user){
+    if (user) {
       return res.status(500).send('User with this email already exist');
     }
-    if(!user){
-      db.users.save(newUser, function(err, user){
-        if(err){
+    if (!user) {
+      db.users.save(newUser, function (err, user) {
+        if (err) {
           return res.status(500).send('Error')
-        }else{
-         return res.json(user);
+        } else {
+          return res.json(user);
         }
       })
     }
+  });
 });
 
-router.post('/login', function(req, res, next) {
-  let email = req.body.email;
-  let password = req.body.password;
-  db.users.findOne({email: email, password: password}, function (err, user) {
-      if (err) {
-        return res.status(500).send();
-      }
-      if(user){
-        return res.json(user);
-      }
-      if (!user) {
-        return res.status(404).send("Wrong email or password");
-      }
-    })
-  })
-});
 router.post('/places', function(req, res, next){
   let name = req.body.name;
   db.places.find({name: name}, function(err, list){

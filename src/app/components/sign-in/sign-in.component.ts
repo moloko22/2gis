@@ -8,6 +8,7 @@ import { AuthService } from "../../auth.service";
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  userName;
   public loginForm: FormGroup;
   constructor(private login:AuthService) {
     this.loginForm = new FormGroup({
@@ -27,8 +28,11 @@ export class SignInComponent implements OnInit {
   }
   public checkAuth(object){
     this.login.signIn(object)
-      .subscribe(res =>{
+      .then(res=>{
         console.log(res);
+      })
+      .catch(err =>{
+        console.log(err);
       })
   }
 }
