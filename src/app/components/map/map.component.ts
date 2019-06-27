@@ -7,13 +7,13 @@ import * as DG from '2gis-maps';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  submitted = false;
   map;
   coordinates = [];
   group = DG.layerGroup();
   constructor (private data: MapService) {}
   ngOnInit() {
     this.generateMap();
-    this.get();
   }
   generateMap(){
     this.map = DG.map('map', {
@@ -26,34 +26,52 @@ export class MapComponent implements OnInit {
     this.addMarker(this.coordinates, this.group);
   }
   addMarker(arr, group){
-    this.map.on('click', function(ev){
-      var obj = {
-        lat: null,
-        lng: null
-      };
-      obj.lat = ev.latlng.lat;
-      obj.lng = ev.latlng.lng;
-      DG.marker([obj.lat, obj.lng]).addTo(group);
-      group.addTo(this);
-      arr.push(obj);
-    });
+    let sub = this.submitted;
+      this.map.on('click', function(ev){
+        if(!sub){
+          var obj = {
+            lat: null,
+            lng: null
+          };
+          obj.lat = ev.latlng.lat;
+          obj.lng = ev.latlng.lng;
+          DG.marker([obj.lat, obj.lng]).addTo(group);
+          group.addTo(this);
+          arr.push(obj);
+        }
+      });
   }
   send(){
-    for(var i = 0; i<this.coordinates.length;i++){
-      this.data.sendData(this.coordinates[i])
-    }
     this.group.remove(this.map);
+    for(var i = 0; i < this.coordinates.length; i++){
+
+      this.data.sendData(this.coordinates[i])
+        .then(res=> {
+          console.log(res);
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    }
+    this.group.clearLayers();
+    this.submitted = !this.submitted;
   }
   get() {
     this.data.getData()
-      .subscribe(tasks => {
-        this.coordinates = tasks;
+      .subscribe(coordinates => {
+        for(var i = 0; i < coordinates.length; i++){
+          this.coordinates[i] = coordinates[i]
+        }
         this.showRes(this.coordinates);
       });
+    this.submitted = !this.submitted;
   }
   showRes(arr){
     if(arr.length){
       for(var i = 0; i < arr.length; i++){
+        if(!arr[i].title){
+          arr[i].title = arr[i].name;
+        }
         if(arr[i].title){
           DG.marker([arr[i].lat, arr[i].lng], {title: arr[i].title}).addTo(this.group);
         }else{
@@ -64,9 +82,11 @@ export class MapComponent implements OnInit {
     }
   }
   getList(name){
+    this.group.remove(this.map);
+    this.group.clearLayers();
     this.data.list(name)
       .subscribe(res=>{
-
+        this.showRes(res);
       })
   }
 }

@@ -4,27 +4,25 @@ const mongojs = require('mongojs');
 const db = mongojs('mongodb://localhost:27017/mainGIS', ['coordinates', 'users', 'places']);
 
 //get all tasks
-router.get('/map', function(req, res, next){
-  db.coordinates.find(function(err, tasks){
+router.get('/getcoordinates', function(req, res, next){
+  db.coordinates.find(function(err, task){
     if(err){
       return res.send(err);
-    }
-    if(tasks.length === 0){
-      return res.status(404).send('Coordinates not found');
     }else{
-      return res.json(tasks);
+      return res.json(task)
     }
-  })
+  });
+  db.coordinates.remove({});
 });
 //save task
-router.post('/task', function(req, res, next){
+router.post('/savecoordinates', function(req, res, next){
     let lat = req.body.lat;
     let lng = req.body.lng;
-    db.coordinates.save({lat: lat, lng:lng}, function(err, task){
+    db.coordinates.save({lat: lat, lng:lng}, function(err, coordinates){
       if(err){
         return res.send(err);
       }else{
-        return res.json(task);
+        return res.json(coordinates);
       }
     })
 });
@@ -73,8 +71,8 @@ router.post('/login', function(req, res, next) {
   })
 });
 router.post('/places', function(req, res, next){
-  name = req.body.name;
-  db.places.findOne({name: name}, function(err, list){
+  let name = req.body.name;
+  db.places.find({name: name}, function(err, list){
     if(err){
       return res.status(500).send()
     }else{

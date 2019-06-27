@@ -11,16 +11,16 @@ export class MapService {
   }
 
   sendData(elem) {
-    let e = {
-      lat: 1,
-      lng: 300
-    };
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this._http.post('/api/task', e, {headers: headers})
-  }
+      return fetch('/api/savecoordinates', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(elem)
+      })
+    }
   getData(){
-    return this._http.get('/api/map')
+    return this._http.get('/api/getcoordinates')
       .map(res => res.json());
   }
   list(elem){
