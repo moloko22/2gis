@@ -7,15 +7,21 @@ export class AuthService {
   constructor(private _http: Http) {
   }
   signUp(form) {
-    var headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this._http.post('/api/register', form, {headers: headers})
-      .map(res => res.json());
+    return fetch('/api/register',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form)
+    })
   }
   signIn(form){
-    var headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this._http.post('/api/login', form, {headers: headers})
-      .map(res => res.json());
+    return fetch('/api/login',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form)
+    })
   }
 }

@@ -35,10 +35,11 @@ export class SignUpComponent implements OnInit {
       return;
     }
     this.logic.signUp(form)
-      .subscribe(user =>{
-        this.userName = user.name;
-        console.log(this.userName);
-      });
-
+      .then(user=>{
+        console.log(user)
+      })
+      .catch(err=>{
+        console.log(err);
+      })
   }
 }
